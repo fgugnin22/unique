@@ -13,7 +13,8 @@ def images_path():
 class Activity(models.Model):
     day = models.IntegerField()
     starts = models.TimeField()
-    moderator = models.ForeignKey(to="Jury", on_delete=models.SET_NULL, null=True, blank=True, related_name="moderated_activity")
+    moderator = models.ForeignKey(to="Jury", on_delete=models.SET_NULL, null=True, blank=True,
+                                  related_name="moderated_activity")
     juries = models.ManyToManyField(to="Jury", related_name="judicating_activity")
 
 
@@ -86,7 +87,8 @@ class City(models.Model):
     image = models.FilePathField(path=images_path)
 
 
-class Jury(UserAccount):
+class Jury(models.Model):
+    user = models.OneToOneField(to=UserAccount, on_delete=models.CASCADE)
     role = models.CharField(max_length=10, choices=[
         ("J", "Jury"),
         ("M", "Moderator")
