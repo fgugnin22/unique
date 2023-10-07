@@ -11,16 +11,16 @@ def images_path():
 
 
 class Activity(models.Model):
-    day = models.IntegerField(max_length=3)
+    day = models.IntegerField()
     starts = models.TimeField()
-    moderator = models.ForeignKey(to="Jury", on_delete=models.SET_NULL)
-    juries = models.ManyToManyField(to="Jury")
+    moderator = models.ForeignKey(to="Jury", on_delete=models.SET_NULL, null=True, blank=True, related_name="moderated_activity")
+    juries = models.ManyToManyField(to="Jury", related_name="judicating_activity")
 
 
 class Event(models.Model):
     name = models.CharField(max_length=255)
     starts = models.DateField()
-    duration_days = models.IntegerField(max_length=3)
+    duration_days = models.IntegerField()
     activities = models.ManyToManyField(to="Activity")
     city = models.ManyToManyField(to="City")
     winner = models.ForeignKey(to="UserAccount", on_delete=models.SET_NULL, null=True, blank=True)
@@ -30,7 +30,7 @@ class Country(models.Model):
     name = models.CharField(max_length=255)
     english_name = models.CharField(max_length=255)
     char_code = models.CharField(max_length=5)
-    int_code = models.IntegerField(max_length=10)
+    int_code = models.IntegerField()
 
 
 # Create your models here.
@@ -59,7 +59,7 @@ class UserAccountManager(BaseUserManager):
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
     # TODO: password validation has to be somewhere
-    idNumber = models.UUIDField()
+    idNumber = models.UUIDField(unique=True)
     objects = UserAccountManager()
     phone_number = models.IntegerField()
     country = models.ManyToManyField(to="Country")
@@ -82,12 +82,11 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 
 
 class City(models.Model):
-    number = models.IntegerField(max_length=10)
+    number = models.IntegerField()
     image = models.FilePathField(path=images_path)
 
 
 class Jury(UserAccount):
-    event = models.ManyToManyField(to="Event")
     role = models.CharField(max_length=10, choices=[
         ("J", "Jury"),
         ("M", "Moderator")
