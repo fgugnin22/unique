@@ -25,6 +25,7 @@ class Event(models.Model):
     duration_days = models.IntegerField()
     activities = models.ManyToManyField(to="Activity")
     city = models.ManyToManyField(to="City")
+    photo = models.FilePathField(path="static/images/events", blank=True, null=True)
     winner = models.ForeignKey(to="UserAccount", on_delete=models.SET_NULL, null=True, blank=True)
 
 
@@ -67,8 +68,8 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
                                 editable=False)
     objects = UserAccountManager()
     phone_number = models.IntegerField()
-    country = models.ManyToManyField(to="Country")
-    photo = models.FilePathField(path=images_path, blank=True, null=True)
+    country = models.ForeignKey(to="Country", on_delete=models.SET_NULL, blank=True, null=True)
+    photo = models.FilePathField(path="static/images/users", blank=True, null=True)
     sex = models.CharField(max_length=10,
                            default='male',
                            choices=[
@@ -91,7 +92,6 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 
 class City(models.Model):
     number = models.IntegerField()
-    image = models.FilePathField(path=images_path)
 
 
 class Jury(models.Model):
