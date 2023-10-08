@@ -1,4 +1,5 @@
 import os
+import uuid
 
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
@@ -60,7 +61,9 @@ class UserAccountManager(BaseUserManager):
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
     # TODO: password validation has to be somewhere
-    idNumber = models.UUIDField(unique=True)
+    idNumber = models.UUIDField(unique=True,
+                                default=uuid.uuid4,
+                                editable=False)
     objects = UserAccountManager()
     phone_number = models.IntegerField()
     country = models.ManyToManyField(to="Country")
