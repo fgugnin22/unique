@@ -92,7 +92,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 
 class City(models.Model):
     number = models.IntegerField()
-    name = models.CharField(max_length=63)
+    name = models.CharField(max_length=63, null=True, blank=True)
 
 class Jury(models.Model):
     user = models.OneToOneField(to=UserAccount, on_delete=models.CASCADE)
