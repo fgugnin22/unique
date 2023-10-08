@@ -14,6 +14,7 @@ def images_path():
 class Activity(models.Model):
     day = models.IntegerField()
     starts = models.TimeField()
+    event = models.ForeignKey(to="Event", on_delete=models.CASCADE)
     moderator = models.ForeignKey(to="Jury", on_delete=models.SET_NULL, null=True, blank=True,
                                   related_name="moderated_activity")
     juries = models.ManyToManyField(to="Jury", related_name="judicating_activity")
@@ -23,8 +24,7 @@ class Event(models.Model):
     name = models.CharField(max_length=255)
     starts = models.DateField()
     duration_days = models.IntegerField()
-    activities = models.ManyToManyField(to="Activity")
-    city = models.ManyToManyField(to="City")
+    city = models.ForeignKey(to="City", on_delete=models.SET_NULL, null=True, blank=True)
     photo = models.FilePathField(path="static/images/events", blank=True, null=True)
     winner = models.ForeignKey(to="UserAccount", on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -92,7 +92,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 
 class City(models.Model):
     number = models.IntegerField()
-
+    name = models.CharField(max_length=63)
 
 class Jury(models.Model):
     user = models.OneToOneField(to=UserAccount, on_delete=models.CASCADE)

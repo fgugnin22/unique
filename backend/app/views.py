@@ -3,10 +3,24 @@ from djoser.views import UserViewSet
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
+from app.models import Event, Activity, Jury
+from app.permissions import IsAdminUserOrReadOnly
+from app.serializers import EventSerializer, ActivitySerializer
 
 
 # Create your views here.
+class EventView(ModelViewSet):
+    queryset = Event.objects.all()
+    permission_classes = [IsAdminUserOrReadOnly]
+    serializer_class = EventSerializer
+
+
+class ActivityView(ModelViewSet):
+    queryset = Activity.objects.all()
+    permission_classes = [IsAdminUserOrReadOnly]
+    serializer_class = ActivitySerializer
+
 
 class UserAPIView(GenericViewSet):
     @action(methods=["PATCH"], detail=False, permission_classes=[IsAuthenticated])

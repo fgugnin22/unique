@@ -15,10 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
-from app.views import UserAPIView
+from app.views import UserAPIView, EventView, ActivityView
 
+EventRouter = DefaultRouter()
+EventRouter.register(r'api/event', EventView, basename='event')
+ActivityRouter = DefaultRouter()
+ActivityRouter.register(r'api/activity', ActivityView, basename='activity')
 userRouter = DefaultRouter()
 userRouter.register(r'api/user', UserAPIView, basename='user')
 urlpatterns = [
@@ -26,3 +31,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt'))
 ]
+urlpatterns += [re_path(r'^((?!api/).)*$', TemplateView.as_view(template_name='index.html'))]
+urlpatterns += EventRouter.urls
+urlpatterns += ActivityRouter.urls
+urlpatterns += userRouter.urls

@@ -1,7 +1,19 @@
 from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
 
-from app.models import UserAccount
+from app.models import UserAccount, Event, Activity
+
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = "__all__"
+
+
+class ActivitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Activity
+        fields = "__all__"
 
 
 class UserSerializer(UserCreateSerializer):
