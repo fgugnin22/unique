@@ -40,8 +40,9 @@ class UserAccountManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError('Email required!')
+
         email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        user = self.model(email=email, idNumber=uuid.uuid4(), **extra_fields)
         user.set_password(password)
         user.save()
         return user
@@ -51,7 +52,7 @@ class UserAccountManager(BaseUserManager):
         if not email:
             raise ValueError('Email required!')
         email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        user = self.model(email=email, idNumber=uuid.uuid4(), **extra_fields)
         user.set_password(password)
         user.is_superuser = 1
         user.is_staff = 1
@@ -67,7 +68,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     objects = UserAccountManager()
     phone_number = models.IntegerField()
     country = models.ManyToManyField(to="Country")
-    photo = models.FilePathField(path=images_path)
+    photo = models.FilePathField(path=images_path, blank=True, null=True)
     sex = models.CharField(max_length=10,
                            default='male',
                            choices=[
