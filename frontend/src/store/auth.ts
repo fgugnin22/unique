@@ -18,13 +18,14 @@ type SignUpState = {
   sex: string;
   birth_date: string;
 };
-type UserDetails = Omit<
-  | SignUpState
-  | {
+type UserDetails =
+  | SignUpState & {
       is_staff: boolean;
-    },
-  "password" | "re_password"
->;
+      is_mod: boolean;
+      is_jury: boolean;
+      is_participant: boolean;
+    };
+
 export const register = createAsyncThunk(
   "users/register",
   async (UserCredentials: SignUpState, thunkAPI) => {
@@ -120,7 +121,7 @@ export const login = createAsyncThunk(
 
 interface initialUserState {
   isAuthenticated: boolean;
-  userDetails: UserDetails | null;
+  userDetails: Omit<UserDetails, "password" | "re_password"> | null;
   loading: boolean;
   registered: boolean;
   activated: boolean;
