@@ -12,10 +12,12 @@ const Layout = (props: LayoutProps) => {
   // Кроме этого, необходимо реализовать запоминание учетных данных пользователя.
   console.log(props);
   return (
-    <div>
-      <h1>THIS IS LAYOUT</h1>
+    <div className="w-screen h-screen flex flex-col text-center">
+      <nav className="h-12 bg-secondary-bg">NAV</nav>
       <Outlet />
-      <h3>THIS IS LAYOUIT TOO</h3>
+      <footer className="h-12 bg-secondary-bg mt-auto text-center">
+        Footer
+      </footer>
     </div>
   );
 };

@@ -13,6 +13,7 @@ import ModeratorDashBoard from "./pages/ModeratorDashBoard";
 import MyActivities from "./pages/MyActivities";
 import OrganizerProfile from "./pages/OrganizerProfile";
 import ParticipantRegistration from "./pages/ParticipantRegistration";
+import "./index.css";
 
 function App() {
   return (
