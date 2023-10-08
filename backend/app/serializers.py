@@ -5,12 +5,18 @@ from app.models import UserAccount
 
 
 class UserSerializer(UserCreateSerializer):
-    team_status = serializers.SlugField(read_only=True)
-
     class Meta(UserCreateSerializer.Meta):
         model = UserAccount
         # СЮДА ДОБАВЛЯТЬ ПОЛЯ КОТОРЫЕ ПОТОМ ОТСЫЛАЕМ НА КЛИЕНТ
-        fields = "__all__"
+        fields = ("idNumber",
+                  "phone_number",
+                  "country",
+                  "photo",
+                  "sex",
+                  "email",
+                  "birth_date",
+                  "name",
+                  "is_staff")
 
     def update(self, instance, validated_data):
         # password = validated_data.pop("password")

@@ -80,7 +80,10 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255, unique=True)
     is_staff = models.BooleanField(default=False)
     USERNAME_FIELD = 'idNumber'  # что является логином
-    REQUIRED_FIELDS = ['name']  # обязательные поля
+    REQUIRED_FIELDS = ['name', "phone_number",
+                       "sex",
+                       "email",
+                       "birth_date"]  # обязательные поля
 
     def __str__(self):
         return self.name

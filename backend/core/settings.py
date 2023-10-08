@@ -147,13 +147,13 @@ REST_FRAMEWORK = {
 }
 # здесь надо доделать настройки simplejwt!(а какие я забыл))
 SIMPLE_JWT = {
-    "AUTH_HEADER_TYPES": ("Bearer",),
+    "AUTH_HEADER_TYPES": ("JWT",),
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=12),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=3),
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
 }
 DJOSER = {
-    "LOGIN_FIELD": "email",
+    "LOGIN_FIELD": "idNumber",
     "USER_CREATE_PASSWORD_RETYPE": True,
     "SERIALIZERS": {
         "user_create": "app.serializers.UserSerializer",
