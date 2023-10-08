@@ -8,13 +8,13 @@ from core.settings import BASE_DIR
 
 
 def images_path():
-    return os.path.join(BASE_DIR, "static/images")
+    return os.path.join(BASE_DIR, "dist/assets/images")
 
 
 class Activity(models.Model):
     day = models.IntegerField()
     starts = models.TimeField()
-    event = models.ForeignKey(to="Event", on_delete=models.CASCADE)
+    event = models.ForeignKey(to="Event", on_delete=models.CASCADE, null=True, blank=True)
     moderator = models.ForeignKey(to="Jury", on_delete=models.SET_NULL, null=True, blank=True,
                                   related_name="moderated_activity")
     juries = models.ManyToManyField(to="Jury", related_name="judicating_activity")
@@ -25,7 +25,7 @@ class Event(models.Model):
     starts = models.DateField()
     duration_days = models.IntegerField()
     city = models.ForeignKey(to="City", on_delete=models.SET_NULL, null=True, blank=True)
-    photo = models.FilePathField(path="static/images/events", blank=True, null=True)
+    photo = models.FilePathField(path="dist/assets/images/events/", blank=True, null=True)
     winner = models.ForeignKey(to="UserAccount", on_delete=models.SET_NULL, null=True, blank=True)
 
 
@@ -69,7 +69,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     objects = UserAccountManager()
     phone_number = models.IntegerField()
     country = models.ForeignKey(to="Country", on_delete=models.SET_NULL, blank=True, null=True)
-    photo = models.FilePathField(path="static/images/users", blank=True, null=True)
+    photo = models.FilePathField(path="dist/assets/images/users/", blank=True, null=True)
     sex = models.CharField(max_length=10,
                            default='male',
                            choices=[
