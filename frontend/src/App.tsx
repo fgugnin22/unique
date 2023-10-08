@@ -27,11 +27,11 @@ function App() {
               element={<Authorization></Authorization>}
             ></Route>
             <Route
-              path="/event_details"
+              path="/event/:id"
               element={<EventDetails></EventDetails>}
             ></Route>
             <Route
-              path="/event_kanban"
+              path="/event/:id/kanban"
               element={<EventKanban></EventKanban>}
             ></Route>
             <Route path="/juries" element={<JuryList></JuryList>}></Route>
