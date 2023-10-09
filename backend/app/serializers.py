@@ -4,7 +4,15 @@ from rest_framework import serializers
 from app.models import UserAccount, Event, Activity
 
 
+class OrganizerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserAccount
+        fields = ("name",)
+
+
 class EventSerializer(serializers.ModelSerializer):
+    organizer = OrganizerSerializer()
+
     class Meta:
         depth = 1
         model = Event

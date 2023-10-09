@@ -13,22 +13,32 @@ const EventDetails = () => {
   }, [params]);
   // Реализуйте интерфейс для  получения подробной информации по всем активностям:
   //лого, дата, город, организатор и описание мероприятия.
-
   return (
     <div>
       {eventData && (
-        <div>
-          <h1 className="text-4xl mt-12">{eventData?.name}</h1>
-          <section className="w-96 m-24 border py-12 px-24 flex items-center flex-col">
-            <img
-              alt="Лого мероприятия"
-              className="w-64 rounded-xl m-4"
-              src={`${serverURL + "/" + eventData?.photo}`}
-            />
-            <p>Дата начала: {eventData?.starts}</p>
-            <p>Город: {eventData?.city?.name}</p>
-          </section>
-          <section></section>
+        <div className="flex flex-col">
+          <h1 className="text-4xl mt-12 col-span-2">{eventData?.name}</h1>
+          <div className="flex flex-row">
+            <section className=" w-80 m-24 py-12 px-24 flex items-center flex-col gap-y-2 border-black border-2 rounded">
+              <img
+                alt="Лого мероприятия"
+                className="max-w-64 rounded-xl m-4"
+                src={`${serverURL + "/" + eventData?.photo}`}
+              />
+              <span className="w-64 font-thin border rounded-lg text-sm leading-6">
+                Дата начала: <p>{eventData?.starts}</p>
+              </span>
+              <span className="w-64 font-thin border rounded-lg text-sm leading-6">
+                Город: <p>{eventData?.city?.name}</p>
+              </span>
+              <span className="w-64 font-thin border rounded-lg text-sm leading-6">
+                Организатор: <p>{eventData?.organizer?.name}</p>
+              </span>
+            </section>
+            <section className="w-full my-24 mx-12 py-12 px-24 flex items-center flex-col gap-y-2 border-black border-2 rounded">
+              <h2 className="text-3xl">Описание: </h2>
+            </section>
+          </div>
         </div>
       )}
     </div>

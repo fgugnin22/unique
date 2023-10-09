@@ -24,6 +24,7 @@ class Event(models.Model):
     name = models.CharField(max_length=255)
     starts = models.DateField()
     duration_days = models.IntegerField()
+    description = models.CharField(max_length=1023, null=True, blank=True)
     city = models.ForeignKey(to="City", on_delete=models.SET_NULL, null=True, blank=True)
     photo = models.FilePathField(path="dist/assets/images/events/", blank=True, null=True)
     winner = models.ForeignKey(to="UserAccount", on_delete=models.SET_NULL, null=True, blank=True)
