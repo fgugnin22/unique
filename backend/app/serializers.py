@@ -6,6 +6,7 @@ from app.models import UserAccount, Event, Activity
 
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
+        depth = 1
         model = Event
         fields = "__all__"
 

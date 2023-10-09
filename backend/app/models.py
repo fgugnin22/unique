@@ -27,7 +27,7 @@ class Event(models.Model):
     city = models.ForeignKey(to="City", on_delete=models.SET_NULL, null=True, blank=True)
     photo = models.FilePathField(path="dist/assets/images/events/", blank=True, null=True)
     winner = models.ForeignKey(to="UserAccount", on_delete=models.SET_NULL, null=True, blank=True)
-
+    organizer = models.ForeignKey(to="UserAccount", on_delete=models.SET_NULL, null=True, blank=True, related_name="organized_event")
 
 class Country(models.Model):
     name = models.CharField(max_length=255)
@@ -78,6 +78,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
                            ])
     email = models.EmailField(max_length=255, unique=True)
     birth_date = models.DateField()
+
     name = models.CharField(max_length=255, unique=True)
     is_staff = models.BooleanField(default=False)
     USERNAME_FIELD = 'idNumber'  # что является логином
@@ -93,6 +94,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 class City(models.Model):
     number = models.IntegerField()
     name = models.CharField(max_length=63, null=True, blank=True)
+
 
 class Jury(models.Model):
     user = models.OneToOneField(to=UserAccount, on_delete=models.CASCADE)

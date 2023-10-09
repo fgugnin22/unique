@@ -19,8 +19,14 @@ const EventDetails = () => {
       {eventData && (
         <div>
           <h1 className="text-4xl mt-12">{eventData?.name}</h1>
-          <section>
-            <img alt="Лого мероприятия" src={`${eventData?.photo}`} />
+          <section className="w-96 m-24 border py-12 px-24 flex items-center flex-col">
+            <img
+              alt="Лого мероприятия"
+              className="w-64 rounded-xl m-4"
+              src={`${serverURL + "/" + eventData?.photo}`}
+            />
+            <p>Дата начала: {eventData?.starts}</p>
+            <p>Город: {eventData?.city?.name}</p>
           </section>
           <section></section>
         </div>
