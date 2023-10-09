@@ -11,9 +11,10 @@ import JuryRegistration from "./pages/JuryRegistration";
 import MainPage from "./pages/MainPage";
 import ModeratorDashBoard from "./pages/ModeratorDashBoard";
 import MyActivities from "./pages/MyActivities";
-import OrganizerProfile from "./pages/OrganizerProfile";
+import OrganizerWindow from "./pages/OrganizerWindow";
 import ParticipantRegistration from "./pages/ParticipantRegistration";
 import "./index.css";
+import OrganizerProfile from "./pages/OrganizerProfile";
 
 function App() {
   return (
@@ -47,6 +48,10 @@ function App() {
             <Route
               path="/my_activites"
               element={<MyActivities></MyActivities>}
+            ></Route>
+            <Route
+              path="/organizer_window"
+              element={<OrganizerWindow></OrganizerWindow>}
             ></Route>
             <Route
               path="/organizer_profile"

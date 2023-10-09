@@ -1,5 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { useAppDispatch } from "./store/store";
+import { getUser } from "./store/auth";
 type LayoutProps = {
   children?: React.ReactNode | React.ReactNode[];
 };
@@ -11,6 +13,11 @@ const Layout = (props: LayoutProps) => {
   //в случае неправильного ввода учетных данных после трех попыток входа.
   // Кроме этого, необходимо реализовать запоминание учетных данных пользователя.
   console.log(props);
+  const dispatch = useAppDispatch();
+  const access = localStorage.getItem("access");
+  if (access) {
+    dispatch(getUser(access));
+  }
   return (
     <div className="w-screen h-screen flex flex-col text-center">
       <nav className="h-12 bg-secondary-bg">NAV</nav>

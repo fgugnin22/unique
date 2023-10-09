@@ -15,14 +15,14 @@ const Authorization = () => {
   );
   const [formState, setFormState] = useState({
     idNumber: "",
-    password: "",
+    password: ""
   });
   const submitHandler = async (e: SubmitEvent) => {
     e.preventDefault();
     await dispatch(login(formState));
     if (isAuthenticated) {
       if (userDetails?.is_staff) {
-        return navigate("/organizer_profile");
+        return navigate("/organizer_window");
       }
       if (userDetails?.is_jury) {
         return navigate("/");

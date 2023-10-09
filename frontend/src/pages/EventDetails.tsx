@@ -19,7 +19,7 @@ const EventDetails = () => {
         <div className="flex flex-col">
           <h1 className="text-4xl mt-12 col-span-2">{eventData?.name}</h1>
           <div className="flex flex-row">
-            <section className=" w-80 m-24 py-12 px-24 flex items-center flex-col gap-y-2 border-black border-2 rounded">
+            <section className=" w-80 m-24 py-4 px-24 flex items-center flex-col gap-y-2 border-black border-2 rounded">
               <img
                 alt="Лого мероприятия"
                 className="max-w-64 rounded-xl m-4"
@@ -35,8 +35,9 @@ const EventDetails = () => {
                 Организатор: <p>{eventData?.organizer?.name}</p>
               </span>
             </section>
-            <section className="w-full my-24 mx-12 py-12 px-24 flex items-center flex-col gap-y-2 border-black border-2 rounded">
-              <h2 className="text-3xl">Описание: </h2>
+            <section className="w-full my-24 mx-12 py-4 px-24 flex items-center flex-col gap-y-2 border-black border-2 rounded">
+              <h2 className="text-3xl m-4">Описание: </h2>
+              <span>{eventData?.description}</span>
             </section>
           </div>
         </div>

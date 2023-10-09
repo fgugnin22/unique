@@ -24,6 +24,15 @@ type UserDetails =
       is_mod: boolean;
       is_jury: boolean;
       is_participant: boolean;
+      photo: string;
+      country: {
+        id: string | number;
+        name: string;
+        english_name: string;
+        char_code: string;
+        int_code: string | number;
+      };
+      idNumber: string;
     };
 
 export const register = createAsyncThunk(
@@ -35,9 +44,9 @@ export const register = createAsyncThunk(
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body,
+        body
       });
 
       const data = await res.json();
@@ -61,8 +70,8 @@ export const getUser = createAsyncThunk(
         method: "GET",
         headers: {
           Accept: "application/json",
-          Authorization: `JWT ${access}`,
-        },
+          Authorization: `JWT ${access}`
+        }
       });
 
       const data = await res.json();
@@ -88,15 +97,15 @@ export const login = createAsyncThunk(
   ) => {
     const body = JSON.stringify({
       idNumber,
-      password,
+      password
     });
     try {
       const res = await fetch(`${server_URL}/auth/jwt/create/`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body,
+        body
       });
 
       const data = await res.json();
@@ -118,6 +127,43 @@ export const login = createAsyncThunk(
     }
   }
 );
+type ModifyUserCredentials = {
+  name?: string;
+  birth_date?: string;
+  phone_number?: number;
+  email?: string;
+  old_password: string;
+  new_password?: string;
+  re_new_password?: string;
+};
+export const modifyUserCredentials = createAsyncThunk(
+  "users/modify",
+  async (credentials: ModifyUserCredentials, thunkAPI) => {
+    const body = JSON.stringify(credentials);
+    try {
+      const res = await fetch(`${server_URL}/api/user/credentials/`, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `JWT ${localStorage.getItem("access")}`
+        },
+        body
+      });
+      if (res.status === 200) {
+        return await res.json();
+      } else {
+        return thunkAPI.rejectWithValue(
+          "Modifying user credentials failed(unprocessed http status code)"
+        );
+      }
+    } catch (e) {
+      return thunkAPI.rejectWithValue(
+        "Modifying user credentials failed with an error in a trycatch statement!)"
+      );
+    }
+  }
+);
 
 interface initialUserState {
   isAuthenticated: boolean;
@@ -133,7 +179,7 @@ const initialState: initialUserState = {
   loading: false,
   registered: false,
   activated: false,
-  loginFail: false,
+  loginFail: false
 };
 
 const authSlice = createSlice({
@@ -184,7 +230,7 @@ const authSlice = createSlice({
     // .addCase(modifyUserCredentials.rejected, (state) => {
     //     state.loading = false;
     // });
-  },
+  }
 });
 // export const { resetRegistered, logout } = authSlice.actions;
 export default authSlice.reducer;

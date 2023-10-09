@@ -32,18 +32,26 @@ class UserAPIView(GenericViewSet):
         #     ...
         # }
         new_password = request.data.get("new_password")
+        re_new_password = request.data.get("re_new_password")
+        birth_date = request.data.get("birth_date")
+        name = request.data.get("name")
         old_password = request.data.get("old_password")
+        phone_number = request.data.get("phone_number")
         new_email = request.data.get("email")
-        new_name = request.data.get('name')
         user = request.user
+        print(user.check_password(old_password), old_password)
         if user.check_password(old_password):
-            if new_password is not None and len(new_password) > 7:
+            if new_password is not None and len(new_password) > 7 and new_password == re_new_password:
                 user.set_password(new_password)
-            if new_email is not None:
+            if new_email is not None and len(new_email) > 0:
                 user.email = new_email
-            if new_name is not None:
-                user.name = new_name
+            if name is not None and len(name) > 0:
+                user.name = name
+            if birth_date is not None and len(birth_date) > 0:
+                user.birth_date = birth_date
+            if phone_number is not None and len(phone_number) > 0:
+                user.phone_number = phone_number
             user.save()
-            print(user.name, user.emal)
+            print(user.name, user.email)
             return Response("credentials updated successfully", 200)
         return Response("very bad response", 400)

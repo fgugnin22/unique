@@ -28,6 +28,7 @@ class ActivitySerializer(serializers.ModelSerializer):
 class UserSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = UserAccount
+        depth = 1
         # СЮДА ДОБАВЛЯТЬ ПОЛЯ КОТОРЫЕ ПОТОМ ОТСЫЛАЕМ НА КЛИЕНТ
         fields = ("idNumber",
                   "phone_number",
