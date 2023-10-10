@@ -10,12 +10,15 @@ from core.settings import BASE_DIR
 def images_path():
     return os.path.join(BASE_DIR, "dist/assets/images")
 
-
+class Task(models.Model):
+    name = models.CharField(max_length=255, null=True, blank=True)
+    activity = models.ForeignKey(to="Activity", on_delete=models.SET_NULL, null=True, blank=True)
+    creator = models.ForeignKey(to="UserAccount", on_delete=models.SET_NULL, null=True, blank=True)
 class Activity(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     day = models.IntegerField()
     starts = models.TimeField()
-    event = models.ForeignKey(to="Event", on_delete=models.CASCADE, null=True, blank=True)
+    event = models.ForeignKey(to="Event", on_delete=models.CASCADE, null=True, blank=True, related_name="activites")
     moderator = models.ForeignKey(to="Jury", on_delete=models.SET_NULL, null=True, blank=True,
                                   related_name="moderated_activity")
     juries = models.ManyToManyField(to="Jury", related_name="judicating_activity")

@@ -103,6 +103,7 @@ const CreateEvent = () => {
               Введите название мероприятия
             </label>
             <input
+              required
               placeholder="Название"
               onChange={handleTextChange}
               className="border ml-auto h-6 w-48"
@@ -113,6 +114,7 @@ const CreateEvent = () => {
           <div className="flex flex-row">
             <label className="block mr-auto  ">Дата начала мероприятия</label>
             <input
+              required
               onChange={handleTextChange}
               className="border block ml-auto  h-6 w-48"
               type="date"
@@ -125,6 +127,7 @@ const CreateEvent = () => {
               Длительность мероприятия(в днях)
             </label>
             <input
+              required
               placeholder="3"
               onChange={handleTextChange}
               className="border block ml-auto  h-6 w-48"
@@ -136,6 +139,7 @@ const CreateEvent = () => {
           <div className="flex flex-row">
             <label className="block mr-auto ">Описание мероприятия</label>
             <textarea
+              required
               placeholder="Описание"
               onChange={handleTextChange}
               className=" text-start border block ml-auto w-[60%] h-36"
@@ -146,6 +150,7 @@ const CreateEvent = () => {
           <div className="flex flex-row">
             <label className="block mr-auto ">Город</label>
             <select
+              required
               onChange={handleTextChange}
               value={formState.city}
               name="city"
@@ -164,6 +169,7 @@ const CreateEvent = () => {
           <div>
             <h3>Наименование</h3>
             <input
+              required
               onChange={handleActivityChange}
               value={activityState.name1}
               type="text"
@@ -171,6 +177,7 @@ const CreateEvent = () => {
               className="h-8 border block w-full"
             />
             <input
+              required
               onChange={handleActivityChange}
               value={activityState.name2}
               type="text"
@@ -178,6 +185,7 @@ const CreateEvent = () => {
               className="h-8 border block w-full"
             />
             <input
+              required
               onChange={handleActivityChange}
               value={activityState.name3}
               type="text"
@@ -188,6 +196,7 @@ const CreateEvent = () => {
           <div>
             <h3>Время</h3>
             <input
+              required
               placeholder="9:00"
               onChange={handleActivityChange}
               value={activityState.starts1}
@@ -196,12 +205,13 @@ const CreateEvent = () => {
             />
 
             <select
+              required
               onChange={handleActivityChange}
               value={activityState.starts2}
               name="starts2"
               className="h-8 border block w-full"
             >
-              <option value={""}></option>
+              <option key="-1" value={undefined}></option>{" "}
               <option key="1">
                 {firstActivityDate.getHours() +
                   ":" +
@@ -214,12 +224,13 @@ const CreateEvent = () => {
               </option>
             </select>
             <select
+              required
               onChange={handleActivityChange}
               value={activityState.starts3}
               name="starts3"
               className="h-8 border block w-full"
             >
-              <option value={""}></option>
+              <option key="-1" value={undefined}></option>{" "}
               <option key="1">
                 {thirdActivityStart.getHours() +
                   ":" +
@@ -235,35 +246,38 @@ const CreateEvent = () => {
           <div>
             <h3>Жюри</h3>
             <select
+              required
               onChange={handleActivityChange}
               value={activityState.jury1}
               name="jury1"
               className="h-8 border block w-full"
             >
-              <option key="-1" value={""}></option>
+              <option key="-1" value={undefined}></option>
               {juries.map((j) => (
                 <option key={"c" + j.id}>{j.name}</option>
               ))}
             </select>
 
             <select
+              required
               onChange={handleActivityChange}
               value={activityState.jury2}
               name="jury2"
               className="h-8 border block w-full"
             >
-              <option key="-1" value={""}></option>
+              <option key="-1" value={undefined}></option>
               {juries.map((j) => (
                 <option key={"b" + j.id}>{j.name}</option>
               ))}
             </select>
             <select
+              required
               onChange={handleActivityChange}
               value={activityState.jury3}
               name="jury3"
               className="h-8 border block w-full"
             >
-              <option key="-1" value={""}></option>
+              <option key="-1" value={undefined}></option>
               {juries.map((j) => (
                 <option key={"a" + j.id}>{j.name}</option>
               ))}

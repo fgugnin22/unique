@@ -7,41 +7,23 @@ from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from app.models import Event, Activity, Jury, City, UserAccount
 from app.permissions import IsAdminUserOrReadOnly
 from app.serializers import EventSerializer, ActivitySerializer, CitySerializer, JurySerializer
+from app.services import create_event
 
 
 # Create your views here.
 class EventView(ModelViewSet):
     queryset = Event.objects.all()
-    permission_classes = [IsAdminUserOrReadOnly]
+    permission_classes = [IsAdminUserOrReadOnly]  # TODO: is_staff or readonly
     serializer_class = EventSerializer
 
     def create(self, request, *args, **kwargs):
-        # name
-        # starts
-        # duration_days
-        # description
-        # city
-        # photo
-        # winner
-        # organizer
-        # juries
-        # activites
-        body = request.data
-        name = body.get("formState").get("name")
-        starts = body.get("formState").get("starts")
-        duration_days = body.get("formState").get('duration_days')
-        description = body.get("formState").get('description')
-        city = body.get("formState").get("city")
-        activities = body.get('activityState')
-        print(
-            name,
-            starts,
-            duration_days,
-            description,
-            city,
-            activities)
-        # print(body)
-        return Response('NIGGERS')
+
+        # photo TODO: <--
+        try:
+            create_event(request)
+            return Response(status=201, data="good")
+        except:
+            return Response(status=400, data="bad")
 
 
 class JuryView(ModelViewSet):
