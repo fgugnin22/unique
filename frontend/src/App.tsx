@@ -15,6 +15,7 @@ import OrganizerWindow from "./pages/OrganizerWindow";
 import ParticipantRegistration from "./pages/ParticipantRegistration";
 import "./index.css";
 import OrganizerProfile from "./pages/OrganizerProfile";
+import CreateEvent from "./pages/CreateEvent";
 
 function App() {
   return (
@@ -39,6 +40,10 @@ function App() {
             <Route
               path="/jury_registration"
               element={<JuryRegistration></JuryRegistration>}
+            ></Route>
+            <Route
+              path="/create_event"
+              element={<CreateEvent></CreateEvent>}
             ></Route>
             <Route path="/" element={<MainPage></MainPage>}></Route>
             <Route

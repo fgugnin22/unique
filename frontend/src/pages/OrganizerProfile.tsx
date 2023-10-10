@@ -52,6 +52,7 @@ const OrganizerProfile = () => {
             </div>
             <div className="grid grid-cols-1">
               <input
+                value={formState.name}
                 onChange={handleTextChange}
                 name="name"
                 type="text"
@@ -62,6 +63,7 @@ const OrganizerProfile = () => {
                 {userDetails?.sex === "m" ? "Мужской" : "Женский"}
               </p>
               <input
+                value={formState.birth_date}
                 onChange={handleTextChange}
                 name="birth_date"
                 type="date"
@@ -75,6 +77,7 @@ const OrganizerProfile = () => {
                 {userDetails?.country.name}
               </p>
               <input
+                value={formState.phone_number}
                 onChange={handleTextChange}
                 type="number"
                 name="phone_number"
@@ -82,6 +85,7 @@ const OrganizerProfile = () => {
                 placeholder={`${userDetails?.phone_number}`}
               />
               <input
+                value={formState.email}
                 onChange={handleTextChange}
                 name="email"
                 type="email"
@@ -89,6 +93,7 @@ const OrganizerProfile = () => {
                 placeholder={`${userDetails?.email}`}
               />
               <input
+                value={formState.old_password}
                 onChange={handleTextChange}
                 className="focus:bg-accent focus:text-white border mt-3 mb-1 ml-4 h-6 "
                 name="old_password"
@@ -97,6 +102,7 @@ const OrganizerProfile = () => {
                 required
               />
               <input
+                value={formState.new_password}
                 onChange={handleTextChange}
                 className="focus:bg-accent focus:text-white border mt-3 mb-1 ml-4 h-6 "
                 name="new_password"
@@ -104,6 +110,7 @@ const OrganizerProfile = () => {
                 placeholder="Оставьте пустым, если не хотите менять"
               />
               <input
+                value={formState.re_new_password}
                 onChange={handleTextChange}
                 className="focus:bg-accent focus:text-white border mt-3 mb-1 ml-4 h-6 "
                 name="re_new_password"

@@ -18,10 +18,14 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
-from app.views import UserAPIView, EventView, ActivityView
+from app.views import UserAPIView, EventView, ActivityView, CityView, JuryView
 
 EventRouter = DefaultRouter()
 EventRouter.register(r'api/event', EventView, basename='event')
+JuryRouter = DefaultRouter()
+JuryRouter.register(r'api/juries', JuryView, basename='jury')
+CityRouter = DefaultRouter()
+CityRouter.register(r'api/city', CityView, basename='city')
 ActivityRouter = DefaultRouter()
 ActivityRouter.register(r'api/activity', ActivityView, basename='activity')
 userRouter = DefaultRouter()
@@ -33,5 +37,7 @@ urlpatterns = [
 ]
 urlpatterns += [re_path(r'^((?!api/).)*$', TemplateView.as_view(template_name='index.html'))]
 urlpatterns += EventRouter.urls
+urlpatterns += JuryRouter.urls
 urlpatterns += ActivityRouter.urls
 urlpatterns += userRouter.urls
+urlpatterns += CityRouter.urls

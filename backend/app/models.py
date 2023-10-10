@@ -12,6 +12,7 @@ def images_path():
 
 
 class Activity(models.Model):
+    name = models.CharField(max_length=255, null=True, blank=True)
     day = models.IntegerField()
     starts = models.TimeField()
     event = models.ForeignKey(to="Event", on_delete=models.CASCADE, null=True, blank=True)

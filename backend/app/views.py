@@ -4,9 +4,9 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
-from app.models import Event, Activity, Jury
+from app.models import Event, Activity, Jury, City, UserAccount
 from app.permissions import IsAdminUserOrReadOnly
-from app.serializers import EventSerializer, ActivitySerializer
+from app.serializers import EventSerializer, ActivitySerializer, CitySerializer, JurySerializer
 
 
 # Create your views here.
@@ -14,6 +14,46 @@ class EventView(ModelViewSet):
     queryset = Event.objects.all()
     permission_classes = [IsAdminUserOrReadOnly]
     serializer_class = EventSerializer
+
+    def create(self, request, *args, **kwargs):
+        # name
+        # starts
+        # duration_days
+        # description
+        # city
+        # photo
+        # winner
+        # organizer
+        # juries
+        # activites
+        body = request.data
+        name = body.get("formState").get("name")
+        starts = body.get("formState").get("starts")
+        duration_days = body.get("formState").get('duration_days')
+        description = body.get("formState").get('description')
+        city = body.get("formState").get("city")
+        activities = body.get('activityState')
+        print(
+            name,
+            starts,
+            duration_days,
+            description,
+            city,
+            activities)
+        # print(body)
+        return Response('NIGGERS')
+
+
+class JuryView(ModelViewSet):
+    queryset = UserAccount.objects.filter(jury__role="J")
+    permission_classes = [IsAdminUserOrReadOnly]
+    serializer_class = JurySerializer
+
+
+class CityView(ModelViewSet):
+    queryset = City.objects.all()
+    permission_classes = [IsAdminUserOrReadOnly]
+    serializer_class = CitySerializer
 
 
 class ActivityView(ModelViewSet):
