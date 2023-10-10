@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { login } from "../store/auth";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { useNavigate } from "react-router-dom";
@@ -17,10 +17,8 @@ const Authorization = () => {
     idNumber: "",
     password: ""
   });
-  const submitHandler = async (e: SubmitEvent) => {
-    e.preventDefault();
-    await dispatch(login(formState));
-    if (isAuthenticated) {
+  useEffect(() => {
+    if (isAuthenticated && userDetails) {
       if (userDetails?.is_staff) {
         return navigate("/organizer_window");
       }
@@ -32,6 +30,10 @@ const Authorization = () => {
       }
       return navigate("/");
     }
+  }, [isAuthenticated, userDetails]);
+  const submitHandler = async (e: SubmitEvent) => {
+    e.preventDefault();
+    await dispatch(login(formState));
   };
   const handleChange = (e: any) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
