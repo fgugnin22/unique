@@ -1,7 +1,7 @@
 from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
 
-from app.models import UserAccount, Event, Activity, City
+from app.models import UserAccount, Event, Activity, City, Task
 
 
 class OrganizerSerializer(serializers.ModelSerializer):
@@ -17,6 +17,7 @@ class EventSerializer(serializers.ModelSerializer):
         depth = 1
         model = Event
         fields = "__all__"
+        extra_fields = "activities"
 
 
 class JurySerializer(serializers.ModelSerializer):
@@ -31,10 +32,33 @@ class CitySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class ActivitySerializer(serializers.ModelSerializer):
+class TaskSerializer(serializers.ModelSerializer):
+    creator = JurySerializer()
     class Meta:
+        depth = 1
+        model = Task
+        fields = "__all__"
+
+
+class ActivitySerializer(serializers.ModelSerializer):
+    tasks = TaskSerializer(many=True)
+
+    class Meta:
+        depth = 1
         model = Activity
         fields = "__all__"
+        extra_fields = ("tasks",)
+
+
+class EventSerializer(serializers.ModelSerializer):
+    organizer = OrganizerSerializer()
+    activities = ActivitySerializer(many=True)
+
+    class Meta:
+        depth = 2
+        model = Event
+        fields = "__all__"
+        extra_fields = ("activities",)
 
 
 class UserSerializer(UserCreateSerializer):
