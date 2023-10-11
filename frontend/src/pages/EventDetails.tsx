@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 const serverURL = import.meta.env.VITE_SERVER_URL;
 const EventDetails = () => {
   const params = useParams();
@@ -17,7 +17,13 @@ const EventDetails = () => {
     <div>
       {eventData && (
         <div className="flex flex-col">
-          <h1 className="text-4xl mt-12 col-span-2">{eventData?.name}</h1>
+          <h1 className="text-4xl mt-12">{eventData?.name}</h1>
+          <Link
+            className="px-4 py-2 -mb-4 mt-4 border-gray-600 border rounded-lg w-32 mx-auto inline hover:bg-slate-200"
+            to={`/event/${eventData?.id}/kanban`}
+          >
+            Перейти на доску
+          </Link>
           <div className="flex flex-row">
             <section className=" w-80 m-24 py-4 px-24 flex items-center flex-col gap-y-2 border-black border-2 rounded">
               <img
