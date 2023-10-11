@@ -43,7 +43,7 @@ const EventKanban = () => {
           onChange={(e) => {
             navigate(`/event/${e.target.value}/kanban`);
           }}
-          className="w-36 border-gray-600 rounded-lg"
+          className="w-72 border-gray-600 rounded-lg"
         >
           {allEvents?.map &&
             allEvents.map((e) => (
@@ -59,17 +59,17 @@ const EventKanban = () => {
           event.activities.map((activity, i) => (
             <div key={activity.id}>
               <div
-                className="w-40 p-2 border rounded-lg border-gray-600 hover:bg-slate-200 transition"
+                className="w-52 p-2 border rounded-lg border-gray-600 hover:bg-slate-200 transition"
                 key={activity.id}
                 onClick={() => {
-                  setActivityDetails((prev) => {
+                  setActivityDetails((prev: any) => {
                     prev = [...prev];
                     prev[i] = !prev[i];
                     return prev;
                   });
                 }}
               >
-                <h3 className="text-xl">{activity.name}</h3>
+                <h3 className="text-lg">{activity.name}</h3>
                 <p>Начало: {activity.starts.slice(0, 5)}</p>
                 <p>
                   Жюри:{" "}

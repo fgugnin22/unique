@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
-from app.views import UserAPIView, EventView, ActivityView, CityView, JuryView
+from app.views import UserAPIView, EventView, ActivityView, CityView, JuryView, CaptchaView
 
 EventRouter = DefaultRouter()
 EventRouter.register(r'api/event', EventView, basename='event')
 JuryRouter = DefaultRouter()
+CaptchaRouter = DefaultRouter()
+CaptchaRouter.register(r'api/captcha', CaptchaView, basename='captcha')
 JuryRouter.register(r'api/juries', JuryView, basename='jury')
 CityRouter = DefaultRouter()
 CityRouter.register(r'api/city', CityView, basename='city')
@@ -41,3 +43,4 @@ urlpatterns += JuryRouter.urls
 urlpatterns += ActivityRouter.urls
 urlpatterns += userRouter.urls
 urlpatterns += CityRouter.urls
+urlpatterns += CaptchaRouter.urls

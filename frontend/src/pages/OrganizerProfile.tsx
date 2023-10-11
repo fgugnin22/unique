@@ -1,6 +1,7 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { modifyUserCredentials } from "../store/auth";
+import { useNavigate } from "react-router-dom";
 
 const OrganizerProfile = () => {
   const dispatch = useAppDispatch();
@@ -15,13 +16,13 @@ const OrganizerProfile = () => {
     new_password: "",
     re_new_password: ""
   });
-  const handleTextChange = (e: ChangeEvent) => {
+  const handleTextChange = (e: any) => {
     setFormState((prev) => {
       prev[e.target.name] = e.target.value;
       return { ...prev };
     });
   };
-  const handleFormSubmit = async (e: SubmitEvent) => {
+  const handleFormSubmit = async (e: any) => {
     e.preventDefault();
     if (formState.new_password !== formState.re_new_password) {
       return;
@@ -29,6 +30,15 @@ const OrganizerProfile = () => {
     await dispatch(modifyUserCredentials(formState));
     window.location.reload();
   };
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (userDetails && userDetails.is_staff === false) {
+      navigate(`/`);
+    }
+    if (!localStorage.getItem("access")) {
+      navigate(`/`);
+    }
+  }, [userDetails?.is_staff, userDetails]);
   return (
     <div className="w-full flex flex-col items-center m-8">
       <h1 className="text-3xl">Мой профиль</h1>

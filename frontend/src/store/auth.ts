@@ -79,10 +79,12 @@ export const getUser = createAsyncThunk(
       if (res.status === 200) {
         return data;
       } else {
+        console.log(1);
         localStorage.clear();
         return thunkAPI.rejectWithValue(data);
       }
     } catch (err: any) {
+      console.log(2);
       localStorage.clear();
       return thunkAPI.rejectWithValue(err.response.data);
     }
@@ -185,7 +187,13 @@ const initialState: initialUserState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      localStorage.clear();
+      state.userDetails = null;
+      state.isAuthenticated = false;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(register.pending, (state) => {
@@ -215,6 +223,7 @@ const authSlice = createSlice({
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.loading = false;
+        state.isAuthenticated = true;
         state.userDetails = action.payload;
       })
       .addCase(getUser.rejected, (state) => {
@@ -232,5 +241,5 @@ const authSlice = createSlice({
     // });
   }
 });
-// export const { resetRegistered, logout } = authSlice.actions;
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;

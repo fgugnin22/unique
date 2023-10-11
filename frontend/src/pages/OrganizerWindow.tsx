@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { useAppSelector } from "../store/store";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const serverURL = import.meta.env.VITE_SERVER_URL;
 
 const OrganizerWindow = () => {
@@ -10,6 +11,7 @@ const OrganizerWindow = () => {
   // 11.01-18.00 – День
   // 18.01 – 24.00 – Вечер
   // При входе в систему подгружается фото пользователя.
+  const navigate = useNavigate();
   const { userDetails } = useAppSelector((state) => state.user);
   const timeOfTheDay = new Date().getHours();
   let timeString = "Доброго времени суток!";
@@ -21,6 +23,14 @@ const OrganizerWindow = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     timeString = "Добрый вечер!";
   }
+  useEffect(() => {
+    if (userDetails && userDetails.is_staff === false) {
+      navigate(`/`);
+    }
+    if (!localStorage.getItem("access")) {
+      navigate(`/`);
+    }
+  }, [userDetails?.is_staff, userDetails]);
   return (
     <div>
       <h1 className="text-3xl m-8">Окно организатора</h1>
@@ -29,7 +39,7 @@ const OrganizerWindow = () => {
         <div className="w-96 flex items-center justify-evenly flex-col border border-gray-600 rounded">
           <img
             className="w-64 m-8 rounded-lg"
-            src={`${serverURL}/${userDetails?.photo}`}
+            src={`${serverURL}/assets/images/users/${userDetails?.photo}`}
           />
           <Link
             className="px-8 py-4 border border-gray-600 bg-slate-200 hover:bg-slate-300 transition rounded-lg w-64  block m-8"

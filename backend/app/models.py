@@ -26,7 +26,7 @@ class Activity(models.Model):
                                   related_name="moderated_activity")
     juries = models.ManyToManyField(to="Jury", related_name="judicating_activity")
 class Captcha(models.Model):
-    name = models.CharField(max_length=15, null=True, blank=True)
+    answer = models.CharField(max_length=15, null=True, blank=True)
     image = models.FilePathField(path="dist/assets/images/captcha/", blank=True, null=True)
 class Event(models.Model):
     name = models.CharField(max_length=255)

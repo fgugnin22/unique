@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 const serverURL = import.meta.env.VITE_SERVER_URL;
 const EventDetails = () => {
   const params = useParams();
-  const [eventData, setEventData] = useState({});
+  const [eventData, setEventData] = useState<any>({});
   useEffect(() => {
     fetch(`${serverURL}/api/event/${params.id}/`)
       .then((res) => res.json())
@@ -23,7 +23,9 @@ const EventDetails = () => {
               <img
                 alt="Лого мероприятия"
                 className="max-w-64 rounded-xl m-4"
-                src={`${serverURL + "/" + eventData?.photo}`}
+                src={`${
+                  serverURL + "/assets/images/events/" + eventData?.photo
+                }`}
               />
               <span className="w-64 font-thin border rounded-lg text-sm leading-6">
                 Дата начала: <p>{eventData?.starts}</p>

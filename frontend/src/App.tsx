@@ -2,7 +2,6 @@ import Layout from "./Layout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import AddEvent from "./pages/AddEvent";
 import Authorization from "./pages/Authorization";
 import EventDetails from "./pages/EventDetails";
 import EventKanban from "./pages/EventKanban";
@@ -23,7 +22,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/addevent" element={<AddEvent></AddEvent>}></Route>
             <Route
               path="/auth"
               element={<Authorization></Authorization>}

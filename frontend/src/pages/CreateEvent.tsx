@@ -1,4 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
+import { useAppSelector } from "../store/store";
+import { useNavigate } from "react-router-dom";
 const serverURL = import.meta.env.VITE_SERVER_URL;
 
 const CreateEvent = () => {
@@ -7,8 +9,9 @@ const CreateEvent = () => {
   // duration_days
   // description
   // city
-  // photo
-
+  // photoconst navigate = useNavigate();
+  const { userDetails } = useAppSelector((s) => s.user);
+  const navigate = useNavigate();
   const [juries, setJuries] = useState<{ id: number; name: string }[]>([]);
   useEffect(() => {
     fetch(`${serverURL}/api/juries/`)
@@ -46,7 +49,7 @@ const CreateEvent = () => {
       .then((r) => r.json())
       .then((data) => setCities(data));
   }, []);
-  const handleActivityChange = (e: ChangeEvent) => {
+  const handleActivityChange = (e: any) => {
     if (e.target.name.slice(0, "starts1".length) === "starts1") {
       const [hours, minutes] = e.target.value.split(":");
       setActivityState((prev) => ({
@@ -59,7 +62,7 @@ const CreateEvent = () => {
       return { ...prev };
     });
   };
-  const handleTextChange = (e: ChangeEvent) => {
+  const handleTextChange = (e: any) => {
     setFormState((prev) => {
       prev[e.target.name] = e.target.value;
       return { ...prev };
@@ -77,7 +80,7 @@ const CreateEvent = () => {
   );
   thirdActivityStart.setHours(firstActivityDate.getHours() + 1);
   thirdActivityStart.setMinutes(firstActivityDate.getMinutes() + 45);
-  const handleAbominationSubmit = async (e: SubmitEvent) => {
+  const handleAbominationSubmit = async (e: any) => {
     e.preventDefault();
     console.log(formState, activityState);
     const body = JSON.stringify({
@@ -93,6 +96,14 @@ const CreateEvent = () => {
       }
     });
   };
+  useEffect(() => {
+    if (userDetails && userDetails.is_staff === false) {
+      navigate(`/`);
+    }
+    if (!localStorage.getItem("access")) {
+      navigate(`/`);
+    }
+  }, [userDetails?.is_staff, userDetails]);
   return (
     <div>
       <h1 className="text-3xl mt-4">Создание Мероприятия</h1>
@@ -156,6 +167,7 @@ const CreateEvent = () => {
               name="city"
               className="border block ml-auto h-6 w-48"
             >
+              <option key="-1" value={undefined}></option>
               {cities.map((city) => (
                 <option value={city.name} key={city.id}>
                   {city.name}

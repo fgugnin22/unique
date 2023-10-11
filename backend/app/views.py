@@ -4,13 +4,19 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
-from app.models import Event, Activity, Jury, City, UserAccount
+from app.models import Event, Activity, Jury, City, UserAccount, Captcha
 from app.permissions import IsAdminUserOrReadOnly
-from app.serializers import EventSerializer, ActivitySerializer, CitySerializer, JurySerializer
+from app.serializers import EventSerializer, ActivitySerializer, CitySerializer, JurySerializer, CaptchaSerializer
 from app.services import create_event
 
 
 # Create your views here.
+class CaptchaView(ModelViewSet):
+    queryset = Captcha.objects.all()
+    permission_classes = [IsAdminUserOrReadOnly]
+    serializer_class = CaptchaSerializer
+
+
 class EventView(ModelViewSet):
     queryset = Event.objects.all()
     permission_classes = [IsAdminUserOrReadOnly]  # TODO: is_staff or readonly

@@ -1,7 +1,7 @@
 from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
 
-from app.models import UserAccount, Event, Activity, City, Task
+from app.models import UserAccount, Event, Activity, City, Task, Captcha
 
 
 class OrganizerSerializer(serializers.ModelSerializer):
@@ -26,6 +26,12 @@ class JurySerializer(serializers.ModelSerializer):
         fields = ("name", "id")
 
 
+class CaptchaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Captcha
+        fields = "__all__"
+
+
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
@@ -34,6 +40,7 @@ class CitySerializer(serializers.ModelSerializer):
 
 class TaskSerializer(serializers.ModelSerializer):
     creator = JurySerializer()
+
     class Meta:
         depth = 1
         model = Task
